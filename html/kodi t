@@ -1,22 +1,40 @@
-<footer>
-  <div class="forma-bottom">
-    <form>
-      <input type="text" placeholder="Your Name*" required>
-      <input type="email" placeholder="Your Email*" required><br><br>
-      <textarea placeholder="Your Message*" required></textarea><br><br>
-      <button>SEND MESSAGE</button>
-    </form>
-  </div>
+p {
+    /*color: blue;
+    font-size: 20px;*/
+    /*margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 100px;
+    margin-left: 200px;*/
+}
 
-  <div class="social-media">
-    <ul>
-      <li>Facebook</li>
-      <li>Twitter</li>
-      <li>Google +</li>
-      <li>LinkedIn</li>
-      <li>Behance</li>
-      <li>Dribbble</li>
-      <li>Github</li>
-    </ul>
-  </div>
-</footer>
+/*Margin shorthand*/
+p {
+    margin: 100px 100px 100px 200px;
+}
+
+/*
+*/
+p {
+    margin: 100px;
+}
+
+div {
+    width: 300px;
+    border: 5px solid green;
+    background-color: lightgray;
+
+    margin: 20px;
+
+    padding-top: 50px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+    padding-left: 80px;
+}
+
+/*div {
+    padding: 50px 30px 50px 80px;
+}*/
+
+/*div {
+    padding: 50px 80px 30px;
+}*/
