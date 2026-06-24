@@ -1,14 +1,474 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Media Attribute</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar System Explorer</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0b0f2a;
+    color:white;
+    line-height:1.6;
+}
+
+header{
+    background:#11173b;
+    padding:20px;
+    text-align:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+nav{
+    margin-top:10px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 15px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+nav a:hover{
+    color:gold;
+    text-decoration:underline;
+}
+
+.hero{
+    text-align:center;
+    padding:80px 20px;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://upload.wikimedia.org/wikipedia/commons/0/0b/Solar_System.jpg');
+    background-size:cover;
+    background-position:center;
+}
+
+.hero h2{
+    font-size:48px;
+    margin-bottom:15px;
+    text-shadow: 0 0 10px cyan;
+}
+
+.hero p{
+    font-size:22px;
+    max-width:800px;
+    margin:0 auto;
+}
+
+.planets{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:25px;
+    padding:50px 20px;
+}
+
+.card{
+    background:#1b2358;
+    width:300px;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    transition:0.4s;
+    cursor:pointer;
+}
+
+.card:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 25px cyan;
+}
+
+.card img{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.card h3{
+    margin:15px 0 10px;
+    color:gold;
+}
+
+.bio-btn{
+    margin-top:15px;
+    padding:10px 20px;
+    background:#0b0f2a;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.bio-btn:hover{
+    background:gold;
+    color:#11173b;
+}
+
+/* Biography Sections */
+.biography{
+    padding:60px 40px;
+    max-width:1100px;
+    margin:0 auto;
+    display:none;
+}
+
+.biography.active{
+    display:block;
+}
+
+.biography h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:gold;
+    font-size:36px;
+}
+
+.bio-content{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:40px;
+    align-items:center;
+}
+
+.bio-text{
+    font-size:18px;
+}
+
+.bio-text ul{
+    margin:20px 0;
+    padding-left:25px;
+}
+
+.bio-text li{
+    margin-bottom:12px;
+}
+
+.bio-image{
+    text-align:center;
+}
+
+.bio-image img{
+    max-width:100%;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(0,255,255,0.3);
+}
+
+table{
+    width:90%;
+    max-width:1100px;
+    margin:40px auto;
+    border-collapse:collapse;
+}
+
+table,th,td{
+    border:1px solid #4a5a9e;
+}
+
+th,td{
+    padding:14px;
+    text-align:center;
+}
+
+th{
+    background:#1b2358;
+    color:gold;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:#11173b;
+    margin-top:50px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card, .biography {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* Responsive */
+@media(max-width:1024px){
+    .bio-content{
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width:768px){
+    .hero h2{
+        font-size:32px;
+    }
+    .planets{
+        flex-direction:column;
+        align-items:center;
+    }
+    iframe{
+        width:95%;
+        height:280px;
+    }
+}
+
+</style>
 </head>
 <body>
-    <picture>
-        <source media="(min-width: 650px)" srcset="houses_logo.png">
-        <img src="logo.png" alt="DSLogo" style="width:50%">
-    </picture>
+
+<header>
+    <h1>🌍 Solar System Explorer</h1>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#planets">Planets</a>
+        <a href="#table">Data Table</a>
+        <a href="#about">About</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h2>Discover Our Solar System</h2>
+    <p>Journey through the wonders of Earth, Mars, Jupiter, and Saturn</p>
+</section>
+
+<section class="planets" id="planets">
+    <div class="card" onclick="showBio('earth')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" alt="Earth">
+        <h3>Earth</h3>
+        <p>Our home planet</p>
+        <button class="bio-btn">Read Biography</button>
+    </div>
+
+    <div class="card" onclick="showBio('mars')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" alt="Mars">
+        <h3>Mars</h3>
+        <p>The Red Planet</p>
+        <button class="bio-btn">Read Biography</button>
+    </div>
+
+    <div class="card" onclick="showBio('jupiter')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg" alt="Jupiter">
+        <h3>Jupiter</h3>
+        <p>King of the Planets</p>
+        <button class="bio-btn">Read Biography</button>
+    </div>
+
+    <div class="card" onclick="showBio('saturn')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg" alt="Saturn">
+        <h3>Saturn</h3>
+        <p>The Ringed Giant</p>
+        <button class="bio-btn">Read Biography</button>
+    </div>
+</section>
+
+<!-- Earth Biography -->
+<section class="biography" id="earth-bio">
+    <h2>Earth - The Blue Planet</h2>
+    <div class="bio-content">
+        <div class="bio-text">
+            <p><strong>Earth</strong> is the only planet in our solar system known to harbor life. Formed approximately 4.54 billion years ago, it is the third planet from the Sun and the densest planet in the Solar System.</p>
+            <ul>
+                <li><strong>Diameter:</strong> 12,742 km</li>
+                <li><strong>Distance from Sun:</strong> 149.6 million km (1 AU)</li>
+                <li><strong>Orbital Period:</strong> 365.25 days</li>
+                <li><strong>Moons:</strong> 1 (The Moon)</li>
+            </ul>
+            <p>Earth's unique features include vast oceans covering 71% of its surface, a breathable atmosphere rich in nitrogen and oxygen, and a protective magnetic field. It is the only planet where liquid water exists on the surface in large quantities.</p>
+            <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" style="color:gold;">Learn more on Wikipedia →</a>
+        </div>
+        <div class="bio-image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg" alt="Earth from space">
+        </div>
+    </div>
+    <div style="text-align:center; margin-top:30px;">
+        <button onclick="hideAllBios()" style="padding:12px 30px; background:#ff4444; border:none; border-radius:8px; color:white; font-size:16px; cursor:pointer;">← Back to Planets</button>
+    </div>
+</section>
+
+<!-- Mars Biography -->
+<section class="biography" id="mars-bio">
+    <h2>Mars - The Red Planet</h2>
+    <div class="bio-content">
+        <div class="bio-text">
+            <p><strong>Mars</strong> is the fourth planet from the Sun and the second-smallest planet in the Solar System. Known as the "Red Planet" due to iron oxide on its surface, it has captured human imagination for centuries as a potential second home.</p>
+            <ul>
+                <li><strong>Diameter:</strong> 6,779 km</li>
+                <li><strong>Distance from Sun:</strong> 227.9 million km</li>
+                <li><strong>Orbital Period:</strong> 687 Earth days</li>
+                <li><strong>Moons:</strong> 2 (Phobos and Deimos)</li>
+            </ul>
+            <p>Mars features the tallest mountain in the Solar System (Olympus Mons) and the longest canyon (Valles Marineris). Evidence suggests that Mars once had liquid water on its surface and a thicker atmosphere. NASA and other agencies continue to explore it with rovers like Perseverance.</p>
+            <a href="https://en.wikipedia.org/wiki/Mars" target="_blank" style="color:gold;">Learn more on Wikipedia →</a>
+        </div>
+        <div class="bio-image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg" alt="Mars">
+        </div>
+    </div>
+    <div style="text-align:center; margin-top:30px;">
+        <button onclick="hideAllBios()" style="padding:12px 30px; background:#ff4444; border:none; border-radius:8px; color:white; font-size:16px; cursor:pointer;">← Back to Planets</button>
+    </div>
+</section>
+
+<!-- Jupiter Biography -->
+<section class="biography" id="jupiter-bio">
+    <h2>Jupiter - The Gas Giant</h2>
+    <div class="bio-content">
+        <div class="bio-text">
+            <p><strong>Jupiter</strong> is the largest planet in our Solar System. A gas giant primarily composed of hydrogen and helium, it has a mass more than twice that of all the other planets combined.</p>
+            <ul>
+                <li><strong>Diameter:</strong> 139,820 km</li>
+                <li><strong>Distance from Sun:</strong> 778.5 million km</li>
+                <li><strong>Orbital Period:</strong> 11.86 Earth years</li>
+                <li><strong>Moons:</strong> 95+ (including Ganymede, the largest moon in the Solar System)</li>
+            </ul>
+            <p>Jupiter is famous for its Great Red Spot, a massive storm that has raged for hundreds of years. Its powerful magnetic field and numerous moons make it a miniature solar system of its own. The Juno spacecraft continues to study Jupiter's atmosphere and interior.</p>
+            <a href="https://en.wikipedia.org/wiki/Jupiter" target="_blank" style="color:gold;">Learn more on Wikipedia →</a>
+        </div>
+        <div class="bio-image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg" alt="Jupiter">
+        </div>
+    </div>
+    <div style="text-align:center; margin-top:30px;">
+        <button onclick="hideAllBios()" style="padding:12px 30px; background:#ff4444; border:none; border-radius:8px; color:white; font-size:16px; cursor:pointer;">← Back to Planets</button>
+    </div>
+</section>
+
+<!-- Saturn Biography -->
+<section class="biography" id="saturn-bio">
+    <h2>Saturn - The Ringed Planet</h2>
+    <div class="bio-content">
+        <div class="bio-text">
+            <p><strong>Saturn</strong> is the sixth planet from the Sun and the second-largest in the Solar System. It is best known for its spectacular ring system made of ice, rock, and dust particles.</p>
+            <ul>
+                <li><strong>Diameter:</strong> 120,536 km</li>
+                <li><strong>Distance from Sun:</strong> 1.4 billion km</li>
+                <li><strong>Orbital Period:</strong> 29.46 Earth years</li>
+                <li><strong>Moons:</strong> 146+ (Titan is the second-largest moon in the Solar System)</li>
+            </ul>
+            <p>Saturn is a gas giant with a density so low it would float in water. Its beautiful rings are visible even with small telescopes. The Cassini mission revealed incredible details about Saturn, its rings, and its diverse moons.</p>
+            <a href="https://en.wikipedia.org/wiki/Saturn" target="_blank" style="color:gold;">Learn more on Wikipedia →</a>
+        </div>
+        <div class="bio-image">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg" alt="Saturn">
+        </div>
+    </div>
+    <div style="text-align:center; margin-top:30px;">
+        <button onclick="hideAllBios()" style="padding:12px 30px; background:#ff4444; border:none; border-radius:8px; color:white; font-size:16px; cursor:pointer;">← Back to Planets</button>
+    </div>
+</section>
+
+<section id="table">
+    <h2 style="text-align:center; margin:50px 0 30px;">Planet Information Table</h2>
+    <table>
+        <tr>
+            <th>Planet</th>
+            <th>Age (Billion Years)</th>
+            <th>Composition</th>
+            <th>Distance from Sun</th>
+            <th>Moons</th>
+        </tr>
+        <tr>
+            <td>Earth</td>
+            <td>4.54</td>
+            <td>Rock, Water, Metals</td>
+            <td>149.6 Million km</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Mars</td>
+            <td>4.6</td>
+            <td>Rock, Iron Oxide</td>
+            <td>227.9 Million km</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>Jupiter</td>
+            <td>4.6</td>
+            <td>Hydrogen, Helium</td>
+            <td>778.5 Million km</td>
+            <td>95+</td>
+        </tr>
+        <tr>
+            <td>Saturn</td>
+            <td>4.5</td>
+            <td>Hydrogen, Helium</td>
+            <td>1.4 Billion km</td>
+            <td>146+</td>
+        </tr>
+    </table>
+</section>
+
+<section class="video-section" style="text-align:center; padding:60px 20px; background:#11173b;">
+    <h2>Watch: The Solar System in Motion</h2>
+    <iframe src="https://www.youtube.com/embed/libKVRa01L8" 
+            title="Solar System Video" 
+            allowfullscreen
+            style="border-radius:12px; box-shadow:0 0 20px rgba(0,255,255,0.4);">
+    </iframe>
+</section>
+
+<section id="about" style="padding:60px 40px; text-align:center; background:#0f1328;">
+    <h2>About This Project</h2>
+    <p style="max-width:700px; margin:20px auto; font-size:18px;">
+        This educational website was created to showcase the beauty and science of our Solar System. 
+        It features interactive planet cards, detailed biographies, responsive design, and real NASA-sourced images.
+    </p>
+    <p>
+        Learn more at <a href="https://www.nasa.gov" target="_blank" style="color:gold;">NASA.gov</a>
+    </p>
+</section>
+
+<footer>
+    <p>Solar System Explorer © 2026 • Built with ❤️ for space exploration</p>
+</footer>
+
+<script>
+function showBio(planet) {
+    // Hide all biographies
+    document.querySelectorAll('.biography').forEach(bio => {
+        bio.classList.remove('active');
+    });
+    
+    // Show the selected one
+    document.getElementById(planet + '-bio').classList.add('active');
+    
+    // Smooth scroll to the biography
+    setTimeout(() => {
+        document.getElementById(planet + '-bio').scrollIntoView({
+            behavior: 'smooth'
+        });
+    }, 100);
+}
+
+function hideAllBios() {
+    document.querySelectorAll('.biography').forEach(bio => {
+        bio.classList.remove('active');
+    });
+    // Scroll back to planets section
+    document.getElementById('planets').scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+
+// Close biography when pressing ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === "Escape") {
+        hideAllBios();
+    }
+});
+</script>
+
 </body>
 </html>
